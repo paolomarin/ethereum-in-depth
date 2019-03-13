@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity >=0.4.21;
 
 import "./Product.sol";
 import "./Addition.sol";
@@ -8,18 +8,20 @@ contract Calculator is ResultStorage {
   Product public product;
   Addition public addition;
 
-  function Calculator() public {
+  constructor() public {
     product = new Product();
     addition = new Addition();
   }
 
   function add(uint256 x) public {
-    bytes4 methodId = Addition(0).calculate.selector;
-    require(addition.delegatecall(methodId, x));
+    bytes4 methodId = bytes4(keccak256("calculate(uint256)"));
+    (bool success, bytes memory data) = address(addition).delegatecall(abi.encodePacked(methodId, x));
+    require(success);
   }
 
   function mul(uint256 x) public {
-    bytes4 methodId = Product(0).calculate.selector;
-    require(product.delegatecall(methodId, x));
+    bytes4 methodId = bytes4(keccak256("calculate(uint256)"));
+    (bool success, bytes memory data) = address(product).delegatecall(abi.encodePacked(methodId, x));
+    require(success);
   }
 }

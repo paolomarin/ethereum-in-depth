@@ -1,16 +1,17 @@
-pragma solidity ^0.4.21;
+pragma solidity >=0.4.21;
 
 import "./Greeter.sol";
 
 contract Wallet {
   Greeter internal greeter;
 
-  function Wallet() public {
+  constructor() public {
     greeter = new Greeter();
   }
 
-  function () public payable {
-    bytes4 methodId = Greeter(0).thanks.selector;
-    require(greeter.delegatecall(methodId));
+  function () payable external{
+    bytes4 methodId = bytes4(keccak256("thanks()"));
+    (bool success, bytes memory data) = address(greeter).delegatecall(abi.encode(methodId));
+    require(success);
   }
 }
