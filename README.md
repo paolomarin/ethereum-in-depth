@@ -29,7 +29,7 @@ We can check that our contract has been deployed successfully by running the fol
 
 ```
 truffle(develop)> myContract = new MyContract(receipt.contractAddress)
-truffle(develop)> myContract.add(10, 2)
+truffle(develop)> myContract.add(10, 2).then(r=>r.toString())
 ```
 
 ### Create a contract using another contract
@@ -42,7 +42,7 @@ truffle(develop)> receipt = (await web3.eth.sendTransaction(opts))
 truffle(develop)> anotherContract = (await AnotherContract.at(receipt.contractAddress))
 truffle(develop)> anotherContract.myContract().then(a => myContractAddress = a)
 truffle(develop)> myContract = (await MyContract.at(myContractAddress))
-truffle(develop)> myContract.add(10, 2)
+truffle(develop)> myContract.add(10, 2).then(r=>r.toString())
 
 ```
 
