@@ -2,7 +2,12 @@ This tutorial was forked from [https://github.com/facuspagnuolo/ethereum-in-dept
 
 ## Set up development environment
 
-Clone this repo and install dependencies
+There are a few technical requirements before we start. Please install the following:
+
+- [Node.js v6+ LTS and npm (comes with Node)](https://nodejs.org/en/)
+- [Git](https://git-scm.com/)
+
+Then, clone this repo and install its dependencies:
 
 ```
 git clone https://github.com/therealyingtong/ethereum-in-depth
