@@ -2,7 +2,12 @@ This tutorial was forked from [https://github.com/facuspagnuolo/ethereum-in-dept
 
 ## Set up development environment
 
-Clone this repo and install dependencies
+There are a few technical requirements before we start. Please install the following:
+
+- [Node.js v6+ LTS and npm (comes with Node)](https://nodejs.org/en/)
+- [Git](https://git-scm.com/)
+
+Then, clone this repo and install its dependencies:
 
 ```
 git clone https://github.com/therealyingtong/ethereum-in-depth
@@ -29,20 +34,18 @@ We can check that our contract has been deployed successfully by running the fol
 
 ```
 truffle(develop)> myContract = new MyContract(receipt.contractAddress)
-truffle(develop)> myContract.add(10, 2)
+truffle(develop)> myContract.add(10, 2).then(r=>r.toString())
 ```
 
 ### Create a contract using another contract
 
 ```
-truffle(develop)> compile
-truffle(develop)> sender = (await web3.eth.getAccounts())[0]
 truffle(develop)> opts = { from: sender, to: null, data: AnotherContract.bytecode, gas: 4600000 }
 truffle(develop)> receipt = (await web3.eth.sendTransaction(opts))
 truffle(develop)> anotherContract = (await AnotherContract.at(receipt.contractAddress))
 truffle(develop)> anotherContract.myContract().then(a => myContractAddress = a)
 truffle(develop)> myContract = (await MyContract.at(myContractAddress))
-truffle(develop)> myContract.add(10, 2)
+truffle(develop)> myContract.add(10, 2).then(r=>r.toString())
 
 ```
 
@@ -53,6 +56,7 @@ Install dependencies `npm i`
 ### Forwarding a call
 
 ```
+truffle develop
 truffle(develop)> compile
 truffle(develop)> Caller.new().then(i => caller = i)
 truffle(develop)> opts = { gas: 4600000 }
@@ -67,8 +71,7 @@ truffle(develop)> parseInt(logs[1].args.gas) //71454
 #### Check Greeter contract
 
 ```
-truffle(develop)> compile
-truffle(develop)> sender = (await web3.eth.getAccounts())[0]
+sender = (await web3.eth.getAccounts())[0]
 truffle(develop)> ETH_2 = new web3.utils.BN('2e18')
 truffle(develop)> Greeter.new().then(i => greeter = i)
 truffle(develop)> opts = { from: sender, value: ETH_2 }
