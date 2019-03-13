@@ -19,6 +19,8 @@ npm i
 Go to the repo `cd 1-contract-creation`
 Install dependencies `npm i`
 
+![](contract_creation.png)
+
 ### Compile and deploy a contract
 
 ```
