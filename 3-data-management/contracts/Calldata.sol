@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity >=0.4.21;
 
 contract Calldata {
   function add(uint256 _a, uint256 _b) public view returns (uint256 result) {
