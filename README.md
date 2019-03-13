@@ -35,8 +35,6 @@ truffle(develop)> myContract.add(10, 2).then(r=>r.toString())
 ### Create a contract using another contract
 
 ```
-truffle(develop)> compile
-truffle(develop)> sender = (await web3.eth.getAccounts())[0]
 truffle(develop)> opts = { from: sender, to: null, data: AnotherContract.bytecode, gas: 4600000 }
 truffle(develop)> receipt = (await web3.eth.sendTransaction(opts))
 truffle(develop)> anotherContract = (await AnotherContract.at(receipt.contractAddress))
