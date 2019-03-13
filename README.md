@@ -66,6 +66,7 @@ truffle(develop)> parseInt(logs[1].args.gas) //71454
 #### Check Greeter contract
 
 ```
+sender = (await web3.eth.getAccounts())[0]
 truffle(develop)> ETH_2 = new web3.utils.BN('2e18')
 truffle(develop)> Greeter.new().then(i => greeter = i)
 truffle(develop)> opts = { from: sender, value: ETH_2 }
