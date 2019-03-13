@@ -51,6 +51,7 @@ Install dependencies `npm i`
 ### Forwarding a call
 
 ```
+truffle develop
 truffle(develop)> compile
 truffle(develop)> Caller.new().then(i => caller = i)
 truffle(develop)> opts = { gas: 4600000 }
