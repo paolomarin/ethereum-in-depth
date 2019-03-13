@@ -1,4 +1,6 @@
-This tutorial was forked from [https://github.com/facuspagnuolo/ethereum-in-depth](https://github.com/facuspagnuolo/ethereum-in-depth) (article at [https://blog.zeppelin.solutions/ethereum-in-depth-part-1-968981e6f833](https://blog.zeppelin.solutions/ethereum-in-depth-part-1-968981e6f833)) and updated to be compatible with Solidity v0.5.
+This tutorial was forked from [https://github.com/facuspagnuolo/ethereum-in-depth](https://github.com/facuspagnuolo/ethereum-in-depth) and updated to be compatible with Solidity v0.5. 
+
+Refer to the article at [https://blog.zeppelin.solutions/ethereum-in-depth-part-1-968981e6f833](https://blog.zeppelin.solutions/ethereum-in-depth-part-1-968981e6f833) for a more narrative walkthrough. 
 
 ## Set up development environment
 
@@ -114,4 +116,42 @@ truffle(develop)> calculator.mul(2)
 truffle(develop)> calculator.result().then(r => r.toString()) // 10
 truffle(develop)> addition.result().then(r => r.toString())   // 0
 truffle(develop)> product.result().then(r => r.toString())    // 0
+```
+
+## Exercise 1: Data management
+Go to the repo `cd 3-data-mangagement`
+Install dependencies `npm i`
+
+### Test inline assembly
+```
+truffle(develop)> compile
+truffle(develop)> Calldata.new().then(i => calldata = i)
+truffle(develop)> calldata.add(1, 6).then(r => r.toString())    // 7
+```
+
+### Try out storage
+```
+truffle(develop)> Storage.new().then(i => storage = i)
+truffle(develop)> web3.eth.getStorageAt(storage.address, 0)  // 0x02
+truffle(develop)> web3.eth.getStorageAt(storage.address, 1)  // 0x..
+truffle(develop)> web3.eth.getStorageAt(storage.address, 2)  // 0x02
+truffle(develop)> web3.eth.getStorageAt(storage.address, 3) 
+// 0x00
+
+truffle(develop)> mapIndex = ‘0000000000000000000000000000000000000000000000000000000000000003’
+
+truffle(develop)> firstKey = ‘0000000000000000000000000000000000000000000000000000000000000001’
+
+truffle(develop)> firstPosition = web3.utils.sha3(firstKey + mapIndex, { encoding: ‘hex’ })
+
+truffle(develop)> web3.eth.getStorageAt(storage.address, firstPosition)
+// 0x09
+
+truffle(develop)> secondKey = ‘0000000000000000000000000000000000000000000000000000000000000002’
+
+truffle(develop)> secondPosition = web3.utils.sha3(secondKey + mapIndex, { encoding: ‘hex’ })
+
+truffle(develop)> web3.eth.getStorageAt(storage.address, secondPosition)
+// 0x0A
+
 ```
