@@ -25,14 +25,24 @@ Install dependencies `npm i`
 
 ### Compile and deploy a contract
 
-```
-truffle develop
-truffle(develop)> compile
-truffle(develop)> sender = (await web3.eth.getAccounts())[0]
-truffle(develop)> opts = { from: sender, to: null, data: MyContract.bytecode, gas: 4600000 }
-truffle(develop)> receipt = (await web3.eth.sendTransaction(opts))
+0. set up a private blockchain with accounts on it
 
-```
+    `truffle develop`
+    `sender = (await web3.eth.getAccounts())[0]`
+
+1. write a smart contract (already done, `contracts/MyContract.sol`)
+2. compile smart contract to bytecode
+
+    `truffle(develop)> compile` (produces `MyContract.bytecode`)
+
+3. form transaction
+
+    `opts = { from: sender, to: null, data: MyContract.bytecode, gas: 4600000 }`
+
+4. send transaction to miner
+
+    `receipt = (await web3.eth.sendTransaction(opts))`
+
 
 We can check that our contract has been deployed successfully by running the following code:
 
